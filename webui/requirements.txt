@@ -1,0 +1,8 @@
+Flask
+Werkzeug
+Cython
+numpy
+pandas
+scipy
+networkx
+wtforms

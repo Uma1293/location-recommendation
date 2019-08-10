@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Location Recommendation System</title>
+    <style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 5px;
+    text-align: left;    
+  }
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+tr:nth-child(odd) {
+ background-color: #fff;
+}
+th {
+  background-color: black;
+  color: white;
+}
+    </style>
+	<link rel="stylesheet" href="{{ url_for('static',     filename='css/template.css') }}">
+  </head>
+  <body>
+    <h1> Location Recommendation System </h1>
+	<form method=post action="">
+	   Enter a number between 0 to {{ db.max_users - 1 }}: 
+	   {{( form.ip )}}
+	   <input type=submit value=submit>
+	 {% if db.user_id != None and db.user_n >= 0 and db.user_n < db.max_users %}
+	 <p> Selected UserID (details hidden to protect privacy): {{ db.user_id }} </p>
+
+    {% if db.friends|length != 0 %}
+    <table>
+    <caption>Top Friends (UserID)</caption>
+    <tr>
+	  {% for f in db.friends: %}
+    <td>{{ f }}</td>
+	  {% endfor %}
+    </tr>
+    </table>
+    {% endif %}
+
+    <p> </p>
+    <table>
+    <caption>Top Recommended Locations (with Friend Network)</caption>
+    <tr>
+	 {% for locid in db.recommended_loc_w_f: %}
+    <td>{{ locid }}</td>
+	 {% endfor %}
+    </tr>
+    </table>
+
+    <p> </p>
+    <table>
+    <caption>Top Recommended Locations (w/o Friend Network)</caption>
+    <tr>
+	 {% for locid in db.recommended_loc_wo_f: %}
+    <td>{{ locid }}</td>
+	 {% endfor %}
+    </tr>
+    </table>
+	 {% endif %}
+	</form>
+  </body>
+</html>
+
+
